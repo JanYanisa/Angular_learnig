@@ -23,13 +23,13 @@
             id="username"
             [formControl]="projectName"
             class="form-control">
-          <!-- <span
-            *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+          <span
+            *ngIf="!projectName.valid && projectName.touched"
             class="help-block">
-            <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
-            <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
+            <span *ngIf="projectName.errors['nameIsForbidden']">This name is invalid!</span>
+            <span *ngIf="projectName.errors['required']">This field is required!</span>
 
-          </span> -->
+          </span>
         </div>
         <div class="form-group">
           <label for="email">email</label>
@@ -38,13 +38,13 @@
               id="username"
               [formControl]="email"
               class="form-control">
-            <!-- <span
-              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
-              class="help-block">
-              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
-              <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
-
-            </span> -->
+            <span
+            *ngIf="!email.valid && email.touched"
+            class="help-block">
+            <span *ngIf="email.errors['mailIsForbidden']">This email is invalid!</span>
+            <span *ngIf="email.errors['required']">This field is required!</span>
+            <span *ngIf="email.errors?.email" class="text-danger" >Please provide a valid email address!</span>
+            </span>
         </div>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
@@ -58,9 +58,20 @@
               Your status : {{status}}
             </option>
           </select>
+          <span
+            *ngIf="!projectStatus.valid && projectStatus.touched"
+            class="help-block">
+            This field is required!</span>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!detailForm.valid">Submit</button>
       </form>
+      <hr>
+    <div *ngIf="submitted">
+      <!-- {{"Test submitted!"}} -->
+      <p>Project Name: {{projectName.value}}</p>
+      <p>Email: {{email.value}}</p>
+      <p>Project Name: {{projectStatus.value}}</p>
+    </div>
     </div>
   </div>
 </div>

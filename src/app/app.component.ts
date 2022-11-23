@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
+import {Observable} from 'rxjs'
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
 	// }
 
 	statusLists: string[] = ['Stable', 'Critical', 'Finished']
-
+	// forbiddenUsernames = ['Test'];
+	submitted = false;
   public detailForm: FormGroup
 
 	get email() {
@@ -36,12 +38,32 @@ export class AppComponent {
   
   constructor(){
     this.detailForm = new FormGroup({
-		projectName: new FormControl(null, [Validators.required]),
-		email: new FormControl('', [Validators.required, Validators.email]),
-		projectStatus: new FormControl(0, [Validators.min(1)]),
+		projectName: new FormControl(null, [Validators.required, this.forbiddenNames]),
+		email: new FormControl('', [Validators.required, Validators.email],this.forbiddenEmails),
+		projectStatus: new FormControl(0, [Validators.min(1), Validators.required]),
 		})
   }
+
+  forbiddenNames(control: FormControl): { [s: string]: boolean } {
+    if (control.value === 'Test') {
+      return { nameIsForbidden: true };
+    }
+    return null;
+  }
   onSubmit(){
-    console.log(this.detailForm)
+	this.submitted = true;
+    // console.log(this.email.errors)
+  }
+  forbiddenEmails(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          resolve({ emailIsForbidden: true });
+        } else {
+          resolve(null);
+        }
+      }, 1500);
+    });
+    return promise;
   }
 }
