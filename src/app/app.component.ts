@@ -18,6 +18,8 @@ export class AppComponent {
 	// 	tel: 'common_validation_format_tel',
 	// }
 
+	statusLists: string[] = ['Stable', 'Critical', 'Finished']
+
   public detailForm: FormGroup
 
 	get email() {
@@ -34,9 +36,9 @@ export class AppComponent {
   
   constructor(){
     this.detailForm = new FormGroup({
-			projectName: new FormControl(null, [Validators.required]),
-      email: new FormControl('', [Validators.email]),
-			projectStatus: new FormControl(''),
+		projectName: new FormControl(null, [Validators.required]),
+		email: new FormControl('', [Validators.required, Validators.email]),
+		projectStatus: new FormControl(0, [Validators.min(1)]),
 		})
   }
   onSubmit(){

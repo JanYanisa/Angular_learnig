@@ -17,12 +17,12 @@
       <h1> Test!!</h1>
       <form [formGroup]=" detailForm " (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="username">Username</label>
-          <!-- <input
+          <label for="projectName">Projectname</label>
+          <input
             type="text"
             id="username"
-            [formControl]="fullName"
-            class="form-control"> -->
+            [formControl]="projectName"
+            class="form-control">
           <!-- <span
             *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
             class="help-block">
@@ -30,6 +30,34 @@
             <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
 
           </span> -->
+        </div>
+        <div class="form-group">
+          <label for="email">email</label>
+            <input
+              type="text"
+              id="username"
+              [formControl]="email"
+              class="form-control">
+            <!-- <span
+              *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+              class="help-block">
+              <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid!</span>
+              <span *ngIf="signupForm.get('userData.username').errors['required']">This field is required!</span>
+
+            </span> -->
+        </div>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select 
+          id="secret"
+          class="form-control"
+          [formControl]="projectStatus">
+              <option 
+              *ngFor="let status of statusLists" 
+              [value]="status">
+              Your status : {{status}}
+            </option>
+          </select>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
