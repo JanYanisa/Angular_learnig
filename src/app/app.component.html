@@ -41,8 +41,8 @@
             <span
             *ngIf="!email.valid && email.touched"
             class="help-block">
-            <span *ngIf="email.errors['mailIsForbidden']">This email is invalid!</span>
-            <span *ngIf="email.errors['required']">This field is required!</span>
+            <span *ngIf="email.errors?.emailIsForbidden">This email is invalid!</span>
+            <span *ngIf="email.errors?.required">This field is required!</span>
             <span *ngIf="email.errors?.email" class="text-danger" >Please provide a valid email address!</span>
             </span>
         </div>
